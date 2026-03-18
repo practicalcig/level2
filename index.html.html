@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Team21 AI Builder – Level 2 (BUILD)</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f1eb;
+    --accent: #e8420a;
+    --gold: #c89a2e;
+    --mid: #4a4a3f;
+    --faint: #e0dbd2;
+    --week1: #1a3a5c;
+    --week2: #1e5c3a;
+    --week3: #5c3a1a;
+    --week4: #5c1a3a;
+    --capstone: #3a1a5c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.12;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 20%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.1;
+  }
+  .hero-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #b0ac9f;
+    max-width: 520px;
+    font-weight: 300;
+  }
+  .hero-meta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .meta-pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .meta-pill span { color: var(--gold); margin-right: 5px; }
+
+  .register-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .register-btn:hover { background: #c93508; transform: translateY(-1px); }
+  .register-btn .btn-icon { font-size: 16px; }
+
+  .weeks { padding: 32px 32px 0; display: flex; flex-direction: column; gap: 2px; }
+
+  .week-card {
+    overflow: hidden;
+    border-left: 4px solid transparent;
+    background: white;
+  }
+  .week-card:first-child { border-radius: 8px 8px 0 0; }
+  .week-card:last-child { border-radius: 0 0 8px 8px; }
+  .week-card.w1 { border-left-color: var(--week1); }
+  .week-card.w2 { border-left-color: var(--week2); }
+  .week-card.w3 { border-left-color: var(--week3); }
+  .week-card.w4a { border-left-color: var(--week4); }
+  .week-card.w4b { border-left-color: #8b1a5c; }
+  .week-card.w56 { border-left-color: var(--capstone); }
+
+  .week-header {
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .week-badge {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-align: center;
+    color: white;
+  }
+  .w1 .week-badge { background: var(--week1); }
+  .w2 .week-badge { background: var(--week2); }
+  .w3 .week-badge { background: var(--week3); }
+  .w4a .week-badge { background: var(--week4); }
+  .w4b .week-badge { background: #8b1a5c; }
+  .w56 .week-badge { background: var(--capstone); }
+
+  .week-title-block { flex: 1; }
+  .week-num { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: #999; font-weight: 500; margin-bottom: 3px; }
+  .week-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .week-objective { margin-top: 3px; font-size: 12px; color: var(--mid); font-weight: 300; }
+
+  .week-body { padding: 0 24px 22px 86px; }
+
+  .modules-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em; color: #aaa; font-weight: 600; margin-bottom: 10px; }
+  .modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin-bottom: 14px; }
+  .module-chip { background: var(--faint); border-radius: 5px; padding: 7px 10px; font-size: 11.5px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .module-chip .chip-icon { margin-right: 5px; }
+
+  .outcome-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 5px;
+    padding: 11px 15px;
+    font-size: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .outcome-box .out-label {
+    flex-shrink: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    padding-top: 2px;
+    font-weight: 700;
+  }
+
+  .deliverables-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .deliverable-item { background: var(--faint); border-radius: 7px; padding: 13px; }
+  .deliverable-item .d-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    -webkit-text-stroke: 1.5px var(--accent);
+    color: transparent;
+    display: block;
+    margin-bottom: 5px;
+    line-height: 1;
+  }
+  .deliverable-item .d-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+  .deliverable-item .d-desc { font-size: 11px; color: var(--mid); font-weight: 300; }
+
+  .transformation { margin: 32px 32px 0; padding-bottom: 56px; }
+  .transform-header { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 16px; }
+  .transform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .transform-item { background: var(--ink); color: var(--paper); border-radius: 7px; padding: 12px 14px; font-size: 12px; display: flex; gap: 8px; align-items: flex-start; }
+  .transform-item .tick { color: #4ccc84; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+  .divider { height: 1px; background: var(--faint); margin: 0 24px; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-label">Team21 Academy · AI Literacy Programme</div>
+  <h1>AI Builder<br/><em>Level 2:</em> BUILD</h1>
+  <p class="hero-sub">A 6-week intensive where students stop consuming AI and start building with it — creating real systems, income channels, and a complete digital presence.</p>
+  <div class="hero-meta">
+    <div class="meta-pill"><span>⏱</span> 6 Weeks</div>
+    <div class="meta-pill"><span>🛠</span> Project-Focused</div>
+    <div class="meta-pill"><span>🌍</span> Bilingual (EN/FR)</div>
+    <div class="meta-pill"><span>🎓</span> Builds on Level 1</div>
+  </div>
+  <a class="register-btn" href="https://wa.me/237694294406?text=I%20am%20ready%20for%20Level%202" target="_blank">
+    <span class="btn-icon">💬</span> Register Now
+  </a>
+</header>
+
+<div class="weeks">
+
+  <div class="week-card w1">
+    <div class="week-header">
+      <div class="week-badge">W1</div>
+      <div class="week-title-block">
+        <div class="week-num">Week 1</div>
+        <div class="week-title">Think Smarter — Advanced AI Mastery</div>
+        <div class="week-objective">Upgrade how students think, prompt, and interact with AI tools at a strategic level.</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="modules-label">Core Modules</div>
+      <div class="modules-grid">
+        <div class="module-chip"><span class="chip-icon">🎯</span>Advanced Prompt Engineering — precision, chaining &amp; role prompting</div>
+        <div class="module-chip"><span class="chip-icon">🔬</span>Google AI Studio — intro to the Gemini ecosystem</div>
+        <div class="module-chip"><span class="chip-icon">📄</span>Claude Advanced — long-context workflows &amp; structured outputs</div>
+        <div class="module-chip"><span class="chip-icon">💻</span>Replit — AI-powered coding environment</div>
+      </div>
+      <div class="outcome-box">
+        <span class="out-label">Outcome</span>
+        <span>Students graduate from basic prompting to strategic AI thinking — knowing which tool to use, how to frame complex tasks, and how to chain outputs across platforms.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="week-card w2">
+    <div class="week-header">
+      <div class="week-badge">W2</div>
+      <div class="week-title-block">
+        <div class="week-num">Week 2</div>
+        <div class="week-title">Build Your System</div>
+        <div class="week-objective">Turn AI outputs into real, deployable digital systems and assets.</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="modules-label">Core Modules</div>
+      <div class="modules-grid">
+        <div class="module-chip"><span class="chip-icon">🏗</span>Google AI Studio + Gemini → Generate HTML projects</div>
+        <div class="module-chip"><span class="chip-icon">🗂</span>GitHub — version control &amp; hosting</div>
+        <div class="module-chip"><span class="chip-icon">🔗</span>Claude + GitHub workflows</div>
+        <div class="module-chip"><span class="chip-icon">⚙️</span>Replit + GitHub integration</div>
+        <div class="module-chip"><span class="chip-icon">🌐</span>Deploying simple websites (custom domain)</div>
+      </div>
+      <div class="outcome-box">
+        <span class="out-label">Outcome</span>
+        <span>Students build and deploy their first AI-powered website or digital system using a multi-tool, real-world workflow.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="week-card w3">
+    <div class="week-header">
+      <div class="week-badge">W3</div>
+      <div class="week-title-block">
+        <div class="week-num">Week 3</div>
+        <div class="week-title">Automate Your Workflows</div>
+        <div class="week-objective">Eliminate repetitive work by building intelligent automation systems.</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="modules-label">Core Modules</div>
+      <div class="modules-grid">
+        <div class="module-chip"><span class="chip-icon">⚡</span>Make (formerly Integromat) — advanced automation scenarios</div>
+        <div class="module-chip"><span class="chip-icon">🔄</span>Zapier — workflow triggers &amp; integrations</div>
+        <div class="module-chip"><span class="chip-icon">🧠</span>NotebookLM — deep research, knowledge systems &amp; content intelligence</div>
+      </div>
+      <div class="outcome-box">
+        <span class="out-label">Outcome</span>
+        <span>Students design and deploy automated systems that reclaim hours of manual work and increase personal and business productivity.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="week-card w4a">
+    <div class="week-header">
+      <div class="week-badge">W4</div>
+      <div class="week-title-block">
+        <div class="week-num">Week 4</div>
+        <div class="week-title">Build Your Media Studio</div>
+        <div class="week-objective">Create high-quality digital content with the polish and consistency of a professional brand.</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="modules-label">Core Modules</div>
+      <div class="modules-grid">
+        <div class="module-chip"><span class="chip-icon">🎬</span>Gemini for Storyboarding — AI-assisted content planning</div>
+        <div class="module-chip"><span class="chip-icon">🎨</span>Principles of Design — visual and audio aesthetics</div>
+        <div class="module-chip"><span class="chip-icon">🪪</span>Visual Identity &amp; Brand Style</div>
+        <div class="module-chip"><span class="chip-icon">📹</span>Professional Content Production — video, images &amp; audio</div>
+      </div>
+      <div class="outcome-box">
+        <span class="out-label">Outcome</span>
+        <span>Students have a functional, AI-powered content production system capable of generating professional-grade media consistently.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="week-card w4b">
+    <div class="week-header">
+      <div class="week-badge">W4+</div>
+      <div class="week-title-block">
+        <div class="week-num">Week 4 — Extended</div>
+        <div class="week-title">Build Your Income</div>
+        <div class="week-objective">Convert newly acquired skills into real, immediate revenue streams.</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="modules-label">Platforms &amp; Channels</div>
+      <div class="modules-grid">
+        <div class="module-chip"><span class="chip-icon">🛒</span>Selar — sell digital products to African audiences</div>
+        <div class="module-chip"><span class="chip-icon">🌍</span>Fiverr — launch AI gigs &amp; freelance services globally</div>
+        <div class="module-chip"><span class="chip-icon">🤝</span>Terawork — build an African client base with lower competition</div>
+        <div class="module-chip"><span class="chip-icon">💼</span>LinkedIn — direct client acquisition &amp; professional networking</div>
+        <div class="module-chip"><span class="chip-icon">👥</span>Facebook &amp; WhatsApp — leverage personal networks &amp; groups</div>
+        <div class="module-chip"><span class="chip-icon">🔀</span>Multi-platform strategy — combining channels for sustainable revenue</div>
+      </div>
+      <div class="outcome-box">
+        <span class="out-label">Outcome</span>
+        <span>Students launch at least 1–2 real income channels and develop a personal strategy for combining platforms, direct clients, and their existing network into sustainable revenue.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="week-card w56">
+    <div class="week-header">
+      <div class="week-badge">W5–6</div>
+      <div class="week-title-block">
+        <div class="week-num">Weeks 5 &amp; 6</div>
+        <div class="week-title">Capstone — Build &amp; Launch</div>
+        <div class="week-objective">Execute real-world projects across every domain covered in the course, producing a complete, launchable portfolio.</div>
+      </div>
+    </div>
+    <div class="week-body">
+      <div class="modules-label">Required Deliverables</div>
+      <div class="deliverables-grid">
+        <div class="deliverable-item">
+          <span class="d-num">01</span>
+          <div class="d-title">Digital Products</div>
+          <div class="d-desc">Create and publish at least 2 books or digital resources for sale or distribution.</div>
+        </div>
+        <div class="deliverable-item">
+          <span class="d-num">02</span>
+          <div class="d-title">Website Development</div>
+          <div class="d-desc">Build your personal website + at least 1 live client website (real business).</div>
+        </div>
+        <div class="deliverable-item">
+          <span class="d-num">03</span>
+          <div class="d-title">Community Platform</div>
+          <div class="d-desc">Build a multilingual website designed for community engagement.</div>
+        </div>
+        <div class="deliverable-item">
+          <span class="d-num">04</span>
+          <div class="d-title">Professional Portfolio</div>
+          <div class="d-desc">Online CV/portfolio website for yourself + one for a client (2 total).</div>
+        </div>
+        <div class="deliverable-item">
+          <span class="d-num">05</span>
+          <div class="d-title">Automation Project</div>
+          <div class="d-desc">Identify a real-life repetitive process and automate it end-to-end.</div>
+        </div>
+        <div class="deliverable-item">
+          <span class="d-num">06</span>
+          <div class="d-title">Online Course</div>
+          <div class="d-desc">Build a structured course with login system, modules, and certificate delivery.</div>
+        </div>
+        <div class="deliverable-item">
+          <span class="d-num">07</span>
+          <div class="d-title">Content Engine</div>
+          <div class="d-desc">Launch a No-Face YouTube channel (min. 10 videos) + Spotify/podcast (min. 5 episodes) + TikTok (min. 4 scripted videos).</div>
+        </div>
+      </div>
+      <div class="outcome-box">
+        <span class="out-label">Capstone Outcome</span>
+        <span>By the end of Week 6, every student has a deployed, documented, and monetizable portfolio — not just theory, but shipped work.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="transformation">
+  <div class="transform-header">Final Transformation — What Every Graduate Holds</div>
+  <div class="transform-grid">
+    <div class="transform-item"><span class="tick">✓</span><span>Working, deployed websites</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>Monetizable digital products</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>Automated personal workflows</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>A content production system</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>An active YouTube channel</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>A live podcast on Spotify</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>An active TikTok presence</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>A real business or service offer</span></div>
+    <div class="transform-item"><span class="tick">✓</span><span>A complete professional online identity</span></div>
+  </div>
+</div>
+
+</body>
+</html>
